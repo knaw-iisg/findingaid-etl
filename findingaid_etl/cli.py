@@ -37,7 +37,9 @@ def build_graph(records) -> Graph:
     return g
 
 
-def stream_records(records, out_path: Path, *, batch_size: int, checkpoint_path: Path | None) -> tuple[int, int]:
+def stream_records(
+    records, out_path: Path, *, batch_size: int, checkpoint_path: Path | None, resuming: bool = False,
+) -> tuple[int, int]:
     """Process records in bounded-memory batches, appending each batch's
     triples as N-Triples to ``out_path``. Especially important here: a
     single finding aid can already be thousands of triples (up to ~9500 for
@@ -54,7 +56,8 @@ def stream_records(records, out_path: Path, *, batch_size: int, checkpoint_path:
             f.write(g.serialize(format="nt"))
         return n
 
-    with out_path.open("w", encoding="utf-8") as f:
+    mode = "a" if resuming else "w"
+    with out_path.open(mode, encoding="utf-8") as f:
         for record in records:
             process_record(record, batch)
             total_records += 1
@@ -107,6 +110,7 @@ def main(argv: list[str] | None = None) -> int:
         checkpoint_path = args.out.with_suffix(args.out.suffix + ".checkpoint") if args.source == "oai" else None
         total_records, total_triples = stream_records(
             records, args.out, batch_size=args.batch_size, checkpoint_path=checkpoint_path,
+            resuming=bool(args.resume_token),
         )
         print(f"Wrote {total_triples} triples from {total_records} records to {args.out}", file=sys.stderr)
         return 0
