@@ -10,7 +10,7 @@ from rdflib.namespace import Namespace
 from findingaid_etl.component import map_component
 from findingaid_etl.ead import text_of
 
-SDO = Namespace("http://schema.org/")
+SDO = Namespace("https://schema.org/")
 IISGV = Namespace("https://iisg.amsterdam/vocab/")
 
 ITEM = URIRef("https://iisg.amsterdam/id/collection/TEST1")

@@ -18,7 +18,7 @@ from findingaid_etl.fixtures import load_fixture
 from findingaid_etl.pipeline import process_record
 
 FIXTURES_DIR = Path(__file__).resolve().parent.parent / "static" / "findingaid" / "sourceData"
-SDO = Namespace("http://schema.org/")
+SDO = Namespace("https://schema.org/")
 IISGV = Namespace("https://iisg.amsterdam/vocab/")
 
 

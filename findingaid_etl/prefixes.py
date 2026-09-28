@@ -12,7 +12,7 @@ COLLECTION = Namespace(ID + "collection/")
 IISGV = Namespace(BASE + "vocab/")
 DATASET = Namespace(ID + "dataset/")
 
-SDO = Namespace("http://schema.org/")
+SDO = Namespace("https://schema.org/")
 RICO_RECORD_SET_TYPES = Namespace("https://www.ica.org/standards/RiC/vocabularies/recordSetTypes#")
 LOC_ISO639_2 = Namespace("http://id.loc.gov/vocabulary/iso639-2/")
 
